@@ -3,7 +3,10 @@ import pandas as pd
 import plotly.graph_objects as go
 import requests
 import streamlit as st
+import urllib3
 from sklearn.ensemble import IsolationForest
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 REGIONS = ["North America", "Europe", "Asia"]
@@ -212,7 +215,7 @@ Write a 3-bullet-point executive summary explaining this root cause and suggesti
             }
 
             try:
-                response = requests.post(url, headers=headers, json=payload)
+                response = requests.post(url, headers=headers, json=payload, verify=False)
                 response_data = response.json()
 
                 if "candidates" in response_data:
